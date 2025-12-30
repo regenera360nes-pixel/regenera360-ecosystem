@@ -42,6 +42,19 @@ class HuggingFaceConnector:
             "Content-Type": "application/json"
         }
     
+    def _validate_token_for_production(self) -> None:
+        """
+        Validate that a real token is configured before making production API calls.
+        
+        Raises:
+            ValueError: If attempting to use placeholder token in production mode
+        """
+        if self.api_token == 'HF_TOKEN_PLACEHOLDER':
+            raise ValueError(
+                "Cannot make API calls with placeholder token. "
+                "Set HF_API_TOKEN environment variable with a valid HuggingFace token."
+            )
+    
     def route_task(self, task_type: str, **kwargs) -> Any:
         """
         Route a task to the appropriate handler based on task type.
@@ -101,8 +114,10 @@ class HuggingFaceConnector:
         }
         
         logger.info(f"Generating text with model: {model}")
-        # Placeholder for actual API call
-        # In production, this would make an HTTP request to HF API
+        # NOTE: This is a placeholder implementation for demonstration
+        # In production, uncomment the following line to enforce token validation:
+        # self._validate_token_for_production()
+        # Then make actual HTTP request to HF API
         return {
             "generated_text": f"[Generated response for: {prompt[:50]}...]",
             "model": model,
