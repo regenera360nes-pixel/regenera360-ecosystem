@@ -44,7 +44,8 @@ class MCPArchitect:
         
         credential_vars = [
             "DATABASE_URL", "REDIS_URL", "OPENAI_API_KEY", 
-            "STRIPE_API_KEY", "AWS_ACCESS_KEY_ID"
+            "STRIPE_API_KEY", "AWS_ACCESS_KEY_ID", "SSH_PRIVATE_KEY",
+            "GITHUB_ENTERPRISE_TOKEN", "WIX_API_KEY"
         ]
         
         real_creds = []
@@ -83,7 +84,10 @@ class MCPArchitect:
             "AWS_ACCESS_KEY_ID": f"AKIA_MOCK_{salt}",
             "AWS_SECRET_ACCESS_KEY": f"mock_secret_{salt}",
             "JWT_SECRET": f"mock_jwt_secret_{salt}",
-            "ENCRYPTION_KEY": f"mock_encryption_{salt}"
+            "ENCRYPTION_KEY": f"mock_encryption_{salt}",
+            "SSH_PRIVATE_KEY": f"~/.ssh/mock_id_rsa_{salt}",
+            "GITHUB_ENTERPRISE_TOKEN": f"ghp_mock_{salt}",
+            "WIX_API_KEY": f"wix_api_mock_{salt}"
         }
         
         return mock_templates.get(var_name, f"mock_value_{salt}")
@@ -194,6 +198,30 @@ class MCPArchitect:
             }
         }
         
+        # Add market study and campaigns summary
+        if self.config and "market_study" in self.config:
+            report["market_study"] = {
+                "enabled": self.config["market_study"].get("enabled", False),
+                "target_market": self.config["market_study"].get("target_market", "N/A"),
+                "market_size": self.config["market_study"].get("market_size_estimate", "N/A")
+            }
+        
+        if self.config and "campaigns" in self.config:
+            campaigns_summary = {}
+            for campaign_id, campaign_data in self.config["campaigns"].items():
+                campaigns_summary[campaign_id] = {
+                    "name": campaign_data.get("name", "N/A"),
+                    "budget": campaign_data.get("budget", "N/A"),
+                    "expected_roi": campaign_data.get("expected_roi", "N/A")
+                }
+            report["campaigns"] = campaigns_summary
+        
+        if self.config and "sales_funnels" in self.config:
+            report["sales_funnels"] = {
+                "stages": len([k for k in self.config["sales_funnels"].keys() if k.startswith("funnel_")]),
+                "integrated": True
+            }
+        
         # Print summary
         print(f"\nTimestamp: {report['timestamp']}")
         print(f"Priority Plan: {report['priority_plan']}")
@@ -201,6 +229,21 @@ class MCPArchitect:
         print(f"Environment: {self.status['environment'].upper()}")
         print(f"Build: {self.status['build'].upper()}")
         print(f"Orchestration: {self.status['orchestration'].upper()}")
+        
+        # Print campaigns info
+        if "campaigns" in report:
+            print(f"\n{'-'*60}")
+            print("CAMPAIGNS CONFIGURED:")
+            print(f"{'-'*60}")
+            for camp_id, camp_data in report["campaigns"].items():
+                print(f"  • {camp_data['name']}")
+                print(f"    Budget: {camp_data['budget']} | ROI: {camp_data['expected_roi']}")
+        
+        # Print sales funnels info
+        if "sales_funnels" in report:
+            print(f"\n{'-'*60}")
+            print(f"SALES FUNNELS: {report['sales_funnels']['stages']} stages integrated")
+            print(f"{'-'*60}")
         
         print(f"\n{'-'*60}")
         print(f"PLANS STATUS: {report['summary']['green_plans']}/{report['summary']['total_plans']} GREEN")

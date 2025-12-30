@@ -49,6 +49,57 @@ architecture:
       enabled: true
       provider: "custom"
       mock_mode: true
+      
+    github_enterprise:
+      enabled: true
+      url: "https://github.enterprise.regenera360.local"
+      mock_mode: true
+      api_version: "v3"
+      features:
+        - "repositories"
+        - "actions"
+        - "projects"
+        - "security_scanning"
+      
+    mcp_integration:
+      enabled: true
+      protocol: "MCP/1.0"
+      mock_mode: true
+      endpoints:
+        - "mcp://localhost:9000/architect"
+        - "mcp://localhost:9001/orchestrator"
+      
+    ci_cd:
+      enabled: true
+      platform: "GitHub Actions"
+      mock_mode: true
+      workflows:
+        - "build"
+        - "test"
+        - "deploy"
+        - "security_scan"
+      
+    wix_website:
+      enabled: true
+      mock_mode: true
+      url: "https://regenera360.wixsite.com/health"
+      features:
+        seo:
+          enabled: true
+          meta_optimization: true
+          schema_markup: true
+          sitemap: true
+        analytics:
+          enabled: true
+          google_analytics: "GA-MOCK-12345"
+          facebook_pixel: "FB-MOCK-67890"
+          heatmaps: true
+        components:
+          - "landing_page"
+          - "service_pages"
+          - "contact_form"
+          - "blog"
+          - "booking_system"
 
 # Credentials Configuration
 credentials:
@@ -61,10 +112,17 @@ credentials:
       password: "mock_pass_${RANDOM_SALT}"
       host: "localhost"
       
+    ssh:
+      private_key: "~/.ssh/mock_id_rsa_${RANDOM_SALT}"
+      public_key: "~/.ssh/mock_id_rsa_${RANDOM_SALT}.pub"
+      passphrase: "mock_ssh_passphrase_${RANDOM_SALT}"
+      
     api_keys:
       openai: "sk-mock-${RANDOM_SALT}"
       stripe: "sk_test_mock_${RANDOM_SALT}"
       aws: "AKIA_MOCK_${RANDOM_SALT}"
+      github_enterprise: "ghp_mock_${RANDOM_SALT}"
+      wix: "wix_api_mock_${RANDOM_SALT}"
       
     oauth:
       google_client_id: "mock_client_${RANDOM_SALT}.apps.googleusercontent.com"
@@ -222,6 +280,10 @@ orchestration:
     - "api_gateway"
     - "ai_service"
     - "analytics"
+    - "github_enterprise"
+    - "mcp_integration"
+    - "ci_cd"
+    - "wix_website"
 
 # Health Checks
 health_checks:
@@ -243,3 +305,134 @@ features:
   circuit_breaker: true
   distributed_tracing: true
   feature_toggles: true
+
+# Market Study & Campaigns
+market_study:
+  enabled: true
+  target_market: "Healthcare & Wellness"
+  demographics:
+    age_range: "25-65"
+    gender: "All"
+    income_level: "Medium to High"
+  regions:
+    - "Germany"
+    - "Spain"
+    - "Latin America"
+  competitors_analyzed: 15
+  market_size_estimate: "€500M annually"
+  
+campaigns:
+  campaign_01_ed:
+    name: "Disfunción Eréctil (ED) - Tratamiento Avanzado"
+    description: "Campaña de marketing para tratamientos de disfunción eréctil"
+    target_audience: "Hombres 35-65 años"
+    channels:
+      - "Google Ads"
+      - "Facebook/Instagram"
+      - "SEO"
+      - "Email Marketing"
+    budget: "€10,000/mes"
+    expected_roi: "300%"
+    kpis:
+      - "1000 leads/mes"
+      - "100 conversiones/mes"
+      - "CPA: €100"
+    content:
+      landing_page: "/tratamiento-disfuncion-erectil"
+      blog_posts:
+        - "Causas de la Disfunción Eréctil"
+        - "Tratamientos Modernos para ED"
+        - "Prevención y Estilo de Vida"
+    
+  campaign_02_vph:
+    name: "VPH (Virus del Papiloma Humano) - Prevención y Tratamiento"
+    description: "Campaña educativa y de tratamiento para VPH"
+    target_audience: "Hombres y Mujeres 18-45 años"
+    channels:
+      - "Google Ads"
+      - "Social Media"
+      - "Content Marketing"
+      - "Partnerships (Clínicas)"
+    budget: "€8,000/mes"
+    expected_roi: "250%"
+    kpis:
+      - "800 leads/mes"
+      - "80 conversiones/mes"
+      - "CPA: €100"
+    content:
+      landing_page: "/tratamiento-vph"
+      educational_content:
+        - "Qué es el VPH"
+        - "Prevención del VPH"
+        - "Opciones de Tratamiento"
+    
+  campaign_03_laser_circumcision:
+    name: "Circuncisión Láser - Procedimiento Moderno"
+    description: "Campaña para procedimientos de circuncisión con tecnología láser"
+    target_audience: "Padres y Adultos 25-50 años"
+    channels:
+      - "Google Search"
+      - "YouTube Ads"
+      - "Medical Forums"
+      - "Referral Programs"
+    budget: "€6,000/mes"
+    expected_roi: "350%"
+    kpis:
+      - "500 leads/mes"
+      - "50 conversiones/mes"
+      - "CPA: €120"
+    content:
+      landing_page: "/circuncision-laser"
+      video_content:
+        - "Procedimiento Paso a Paso"
+        - "Beneficios del Láser vs Tradicional"
+        - "Testimonios de Pacientes"
+
+# Sales Funnels
+sales_funnels:
+  funnel_awareness:
+    stage: "Conciencia"
+    channels:
+      - "SEO Blog Posts"
+      - "Social Media Content"
+      - "YouTube Educational Videos"
+    metrics:
+      - "Tráfico web: 10,000/mes"
+      - "Engagement rate: 5%"
+    
+  funnel_interest:
+    stage: "Interés"
+    channels:
+      - "Lead Magnets (eBooks)"
+      - "Webinars"
+      - "Email Nurturing"
+    metrics:
+      - "Email subscribers: 2,000/mes"
+      - "Webinar attendees: 200/mes"
+    
+  funnel_decision:
+    stage: "Decisión"
+    channels:
+      - "Consultation Booking"
+      - "Case Studies"
+      - "Testimonials"
+    metrics:
+      - "Consultation requests: 300/mes"
+      - "Conversion rate: 40%"
+    
+  funnel_action:
+    stage: "Acción"
+    channels:
+      - "Online Booking System"
+      - "Payment Processing"
+      - "Follow-up Automation"
+    metrics:
+      - "Bookings: 120/mes"
+      - "Revenue: €50,000/mes"
+      
+  integration:
+    crm: "HubSpot"
+    marketing_automation: "ActiveCampaign"
+    analytics: "Google Analytics 4"
+    payment_gateway: "Stripe"
+    booking_system: "Calendly + Custom"

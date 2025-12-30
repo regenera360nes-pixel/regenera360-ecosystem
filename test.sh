@@ -106,6 +106,19 @@ run_test "README.md contains 11 plans" "grep -q 'PLAN' README.md"
 run_test "QUICKSTART.md has execution commands" "grep -q './run.sh' QUICKSTART.md"
 run_test "TECHNICAL.md has architecture info" "grep -q 'Architecture' TECHNICAL.md"
 run_test "SUMMARY.md has status report" "grep -q 'GREEN' SUMMARY.md"
+run_test "MARKETING_CAMPAIGNS.md exists" "test -f MARKETING_CAMPAIGNS.md"
+run_test "WIX_WEBSITE.md exists" "test -f WIX_WEBSITE.md"
+echo ""
+
+# Test 8: New Features
+echo -e "${BLUE}Test Suite 8: New Features Integration${NC}"
+run_test "Master_Config has GitHub Enterprise" "grep -q 'github_enterprise' Master_Config.yaml"
+run_test "Master_Config has MCP integration" "grep -q 'mcp_integration' Master_Config.yaml"
+run_test "Master_Config has CI/CD" "grep -q 'ci_cd' Master_Config.yaml"
+run_test "Master_Config has Wix website" "grep -q 'wix_website' Master_Config.yaml"
+run_test "Master_Config has campaigns" "grep -q 'campaigns' Master_Config.yaml"
+run_test "Master_Config has sales funnels" "grep -q 'sales_funnels' Master_Config.yaml"
+run_test "SSH credentials in config" "grep -q 'ssh:' Master_Config.yaml"
 echo ""
 
 # Final Summary

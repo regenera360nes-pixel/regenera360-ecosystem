@@ -32,11 +32,15 @@ python3 mcp_architect.py
 ## 📋 Características
 
 ### MCP Architect
-- ✓ Detección automática de credenciales (real/mock)
+- ✓ Detección automática de credenciales (real/mock) incluyendo SSH
 - ✓ Generación y lectura de Master_Config.yaml
 - ✓ Sustitución de variables de entorno con mocks funcionales
 - ✓ Ejecución de scripts de build y orquestación
 - ✓ Reporte VERDE para los 11 planes
+- ✓ Integración con GitHub Enterprise, MCP y CI/CD
+- ✓ Sitio web Wix simulado con SEO y analítica
+- ✓ 3 campañas de marketing configuradas
+- ✓ Embudos de venta integrados
 
 ### 11 Planes Implementados
 
@@ -86,6 +90,10 @@ regenera360-ecosystem/
 - RabbitMQ Message Queue (puerto 5672)
 - AI Service (GPT-4 mock)
 - Analytics Service
+- GitHub Enterprise Integration
+- MCP Integration
+- CI/CD Pipeline (GitHub Actions)
+- Wix Website (simulado con SEO y analítica)
 
 ## 🔐 Credenciales
 
@@ -95,7 +103,32 @@ El sistema detecta automáticamente credenciales reales en variables de entorno.
 DATABASE_URL: postgresql://mock_user:mock_pass@localhost:5432/regenera360_mock
 REDIS_URL: redis://localhost:6379/0
 OPENAI_API_KEY: sk-mock-{salt}
+SSH_PRIVATE_KEY: ~/.ssh/mock_id_rsa_{salt}
+GITHUB_ENTERPRISE_TOKEN: ghp_mock_{salt}
+WIX_API_KEY: wix_api_mock_{salt}
 ```
+
+## 🎯 Campañas de Marketing
+
+El sistema incluye 3 campañas de marketing completamente configuradas:
+
+1. **Disfunción Eréctil (ED)**: Budget €10,000/mes, ROI 300%
+2. **VPH**: Budget €8,000/mes, ROI 250%
+3. **Circuncisión Láser**: Budget €6,000/mes, ROI 350%
+
+Ver [MARKETING_CAMPAIGNS.md](MARKETING_CAMPAIGNS.md) para detalles completos.
+
+## 🌐 Sitio Web Wix (Simulado)
+
+Configuración completa de sitio web con:
+- SEO optimizado (score 92/100)
+- Google Analytics 4 integrado
+- Facebook Pixel configurado
+- Sistema de reservas (Calendly)
+- Chat en vivo
+- Embudos de venta integrados
+
+Ver [WIX_WEBSITE.md](WIX_WEBSITE.md) para especificaciones completas.
 
 ## 📊 Reporte de Estado
 

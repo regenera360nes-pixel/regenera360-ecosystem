@@ -26,7 +26,7 @@ info() {
 }
 
 # Service startup sequence
-SERVICES=("database" "cache" "message_queue" "api_gateway" "ai_service" "analytics")
+SERVICES=("database" "cache" "message_queue" "api_gateway" "ai_service" "analytics" "github_enterprise" "mcp_integration" "ci_cd" "wix_website")
 
 info "Starting services in optimal order..."
 echo ""
