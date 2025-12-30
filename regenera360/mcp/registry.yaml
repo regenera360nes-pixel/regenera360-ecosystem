@@ -1,0 +1,386 @@
+# REGENERA360 MCP (Model Control Protocol) Registry
+#
+# This registry makes HuggingFace tools and optimization capabilities
+# visible to the MCP system for orchestration and discovery.
+
+version: "1.0.0"
+registry_name: "regenera360_mcp_registry"
+description: |
+  Central registry for REGENERA360 ecosystem tools and services,
+  enabling Model Control Protocol integration and service discovery.
+
+# HuggingFace Integration Tools
+huggingface_tools:
+  - name: "hf_text_generation"
+    display_name: "HuggingFace Text Generation"
+    category: "generation"
+    description: "Generate text using HuggingFace language models (Codex-like tasks)"
+    provider: "regenera360.integrations.huggingface.connector.HuggingFaceConnector"
+    method: "text_generation"
+    parameters:
+      - name: "prompt"
+        type: "string"
+        required: true
+        description: "Input prompt for text generation"
+        
+      - name: "model"
+        type: "string"
+        required: false
+        default: "gpt2"
+        description: "Model name to use for generation"
+        
+      - name: "max_length"
+        type: "integer"
+        required: false
+        default: 100
+        description: "Maximum length of generated text"
+        
+      - name: "temperature"
+        type: "float"
+        required: false
+        default: 0.7
+        description: "Sampling temperature (0.0 - 1.0)"
+    
+    capabilities:
+      - "code_generation"
+      - "text_completion"
+      - "creative_writing"
+    
+    performance:
+      avg_latency_ms: 500
+      max_concurrency: 10
+
+  - name: "hf_classification"
+    display_name: "HuggingFace Text Classification"
+    category: "analysis"
+    description: "Classify text using HuggingFace models"
+    provider: "regenera360.integrations.huggingface.connector.HuggingFaceConnector"
+    method: "classify"
+    parameters:
+      - name: "text"
+        type: "string"
+        required: true
+        description: "Text to classify"
+        
+      - name: "model"
+        type: "string"
+        required: false
+        default: "distilbert-base-uncased-finetuned-sst-2-english"
+        description: "Classification model name"
+        
+      - name: "labels"
+        type: "array"
+        required: false
+        description: "Optional list of candidate labels"
+    
+    capabilities:
+      - "sentiment_analysis"
+      - "topic_classification"
+      - "intent_detection"
+    
+    performance:
+      avg_latency_ms: 300
+      max_concurrency: 15
+
+  - name: "hf_feature_extraction"
+    display_name: "HuggingFace Feature Extraction"
+    category: "embeddings"
+    description: "Extract feature embeddings from text"
+    provider: "regenera360.integrations.huggingface.connector.HuggingFaceConnector"
+    method: "extract_features"
+    parameters:
+      - name: "text"
+        type: "string"
+        required: true
+        description: "Input text for feature extraction"
+        
+      - name: "model"
+        type: "string"
+        required: false
+        default: "sentence-transformers/all-MiniLM-L6-v2"
+        description: "Feature extraction model"
+    
+    capabilities:
+      - "semantic_search"
+      - "similarity_computation"
+      - "clustering"
+    
+    performance:
+      avg_latency_ms: 200
+      max_concurrency: 20
+
+  - name: "hf_question_answering"
+    display_name: "HuggingFace Question Answering"
+    category: "qa"
+    description: "Answer questions based on context"
+    provider: "regenera360.integrations.huggingface.connector.HuggingFaceConnector"
+    method: "question_answering"
+    parameters:
+      - name: "question"
+        type: "string"
+        required: true
+        description: "Question to answer"
+        
+      - name: "context"
+        type: "string"
+        required: true
+        description: "Context containing the answer"
+        
+      - name: "model"
+        type: "string"
+        required: false
+        default: "distilbert-base-cased-distilled-squad"
+        description: "QA model name"
+    
+    capabilities:
+      - "document_qa"
+      - "information_extraction"
+      - "context_understanding"
+    
+    performance:
+      avg_latency_ms: 400
+      max_concurrency: 8
+
+  - name: "hf_summarization"
+    display_name: "HuggingFace Text Summarization"
+    category: "summarization"
+    description: "Summarize long text documents"
+    provider: "regenera360.integrations.huggingface.connector.HuggingFaceConnector"
+    method: "summarize"
+    parameters:
+      - name: "text"
+        type: "string"
+        required: true
+        description: "Text to summarize"
+        
+      - name: "model"
+        type: "string"
+        required: false
+        default: "facebook/bart-large-cnn"
+        description: "Summarization model"
+        
+      - name: "max_length"
+        type: "integer"
+        required: false
+        default: 130
+        description: "Maximum summary length"
+        
+      - name: "min_length"
+        type: "integer"
+        required: false
+        default: 30
+        description: "Minimum summary length"
+    
+    capabilities:
+      - "document_summarization"
+      - "abstract_generation"
+      - "key_points_extraction"
+    
+    performance:
+      avg_latency_ms: 800
+      max_concurrency: 5
+
+# Evolutionary Optimizer Tools
+optimization_tools:
+  - name: "analyze_performance"
+    display_name: "Performance Analysis"
+    category: "optimization"
+    description: "Analyze system performance metrics (Measure step)"
+    provider: "regenera360.agents.evolutionary_optimizer.EvolutionaryOptimizer"
+    method: "analyze_performance"
+    parameters:
+      - name: "metrics"
+        type: "object"
+        required: true
+        description: "Dictionary of performance metrics"
+        
+      - name: "context"
+        type: "string"
+        required: false
+        description: "Optional context about system state"
+    
+    capabilities:
+      - "trend_analysis"
+      - "anomaly_detection"
+      - "performance_insights"
+    
+    performance:
+      avg_latency_ms: 150
+      max_concurrency: 5
+
+  - name: "predict_bottlenecks"
+    display_name: "Bottleneck Prediction"
+    category: "optimization"
+    description: "Predict potential system bottlenecks (Predict step)"
+    provider: "regenera360.agents.evolutionary_optimizer.EvolutionaryOptimizer"
+    method: "predict_bottlenecks"
+    parameters:
+      - name: "system_state"
+        type: "object"
+        required: true
+        description: "Current system state and resources"
+        
+      - name: "forecast_horizon"
+        type: "integer"
+        required: false
+        default: 5
+        description: "Number of time steps to predict ahead"
+    
+    capabilities:
+      - "predictive_analytics"
+      - "resource_forecasting"
+      - "capacity_planning"
+    
+    performance:
+      avg_latency_ms: 200
+      max_concurrency: 3
+
+  - name: "generate_fix"
+    display_name: "Fix Generation"
+    category: "optimization"
+    description: "Generate fixes for identified problems (Optimize step)"
+    provider: "regenera360.agents.evolutionary_optimizer.EvolutionaryOptimizer"
+    method: "generate_fix"
+    parameters:
+      - name: "problem_description"
+        type: "string"
+        required: true
+        description: "Description of the problem to fix"
+        
+      - name: "system_context"
+        type: "object"
+        required: false
+        description: "Optional context about system state"
+    
+    capabilities:
+      - "self_repair"
+      - "automated_remediation"
+      - "fix_recommendation"
+    
+    performance:
+      avg_latency_ms: 250
+      max_concurrency: 3
+
+  - name: "run_optimization_loop"
+    display_name: "Complete Optimization Loop"
+    category: "optimization"
+    description: "Run full Measure->Predict->Optimize loop"
+    provider: "regenera360.agents.evolutionary_optimizer.EvolutionaryOptimizer"
+    method: "run_optimization_loop"
+    parameters:
+      - name: "metrics"
+        type: "object"
+        required: true
+        description: "Performance metrics to analyze"
+        
+      - name: "system_state"
+        type: "object"
+        required: true
+        description: "Current system state"
+        
+      - name: "auto_apply"
+        type: "boolean"
+        required: false
+        default: false
+        description: "Whether to automatically apply optimizations"
+    
+    capabilities:
+      - "end_to_end_optimization"
+      - "automated_improvement"
+      - "continuous_optimization"
+    
+    performance:
+      avg_latency_ms: 600
+      max_concurrency: 2
+
+# Tool Groups for organized access
+tool_groups:
+  - name: "ai_generation"
+    display_name: "AI Text Generation Tools"
+    description: "Tools for generating and completing text"
+    tools:
+      - "hf_text_generation"
+      - "hf_summarization"
+    
+  - name: "ai_analysis"
+    display_name: "AI Analysis Tools"
+    description: "Tools for analyzing and understanding text"
+    tools:
+      - "hf_classification"
+      - "hf_feature_extraction"
+      - "hf_question_answering"
+    
+  - name: "self_improvement"
+    display_name: "Self-Improvement Tools"
+    description: "Tools for system optimization and self-repair"
+    tools:
+      - "analyze_performance"
+      - "predict_bottlenecks"
+      - "generate_fix"
+      - "run_optimization_loop"
+
+# Authentication and Security
+authentication:
+  huggingface:
+    type: "bearer_token"
+    token_env_var: "HF_API_TOKEN"
+    token_placeholder: "HF_TOKEN_PLACEHOLDER"
+    required: true
+    
+  internal_services:
+    type: "service_account"
+    required: false
+
+# Rate Limiting
+rate_limits:
+  global:
+    requests_per_minute: 1000
+    
+  per_tool:
+    hf_text_generation: 60
+    hf_classification: 100
+    hf_feature_extraction: 120
+    hf_question_answering: 50
+    hf_summarization: 30
+    analyze_performance: 300
+    predict_bottlenecks: 100
+    generate_fix: 100
+    run_optimization_loop: 30
+
+# Service Discovery
+service_endpoints:
+  huggingface_connector:
+    host: "${HF_SERVICE_HOST:-localhost}"
+    port: "${HF_SERVICE_PORT:-8001}"
+    protocol: "http"
+    health_check: "/health"
+    
+  evolutionary_optimizer:
+    host: "${OPTIMIZER_SERVICE_HOST:-localhost}"
+    port: "${OPTIMIZER_SERVICE_PORT:-8002}"
+    protocol: "http"
+    health_check: "/health"
+
+# Monitoring and Observability
+monitoring:
+  metrics_enabled: true
+  tracing_enabled: true
+  logging_level: "INFO"
+  
+  metrics_to_track:
+    - "tool_invocation_count"
+    - "tool_latency"
+    - "tool_error_rate"
+    - "optimization_cycles"
+    - "fix_success_rate"
+
+# Expansion Configuration for 111 improvements
+expansion:
+  max_registered_tools: 111
+  custom_tool_support: true
+  plugin_directory: "./plugins"
+  
+  versioning:
+    strategy: "semantic"
+    backward_compatibility: true
+    deprecation_notice_period_days: 90
