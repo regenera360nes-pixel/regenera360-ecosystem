@@ -70,7 +70,7 @@ echo ""
 # Test 3: Improvements Count
 echo -e "${BLUE}Test Suite 3: Improvements Validation${NC}"
 run_test "Exactly 111 improvements" "test $(grep -E '^[0-9]+\.' 111_MEJORAS.md | wc -l) -eq 111"
-run_test "Security improvements (22)" "test $(grep -E '^[1-9][0-9]?\.' 111_MEJORAS.md | head -22 | wc -l) -eq 22"
+run_test "Security improvements (22)" "test $(grep -E '^[0-9]+\.' 111_MEJORAS.md | head -22 | wc -l) -eq 22"
 run_test "Total distribution is correct" "test $(grep -E '^[0-9]+\.' 111_MEJORAS.md | wc -l) -eq 111"
 echo ""
 

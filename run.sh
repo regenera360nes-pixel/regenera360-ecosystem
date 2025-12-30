@@ -12,6 +12,9 @@ echo "  Prioridad: PLAN 11 (Min Time)"
 echo "=================================================================="
 echo ""
 
+# Python executable
+PYTHON_CMD="python3"
+
 # Colors
 GREEN='\033[0;32m'
 BLUE='\033[0;34m'
@@ -38,8 +41,8 @@ info() {
 
 # Step 1: Install dependencies
 section "Paso 1: Instalando Dependencias"
-if command -v python3 &> /dev/null; then
-    python3 -m pip install --quiet -r requirements.txt
+if command -v $PYTHON_CMD &> /dev/null; then
+    $PYTHON_CMD -m pip install --quiet -r requirements.txt
     success "Dependencias Python instaladas"
 else
     echo "✗ Python 3 no encontrado"
@@ -63,7 +66,7 @@ success "Validación completada"
 
 # Step 5: Run MCP Architect
 section "Paso 5: Ejecutando MCP Architect"
-python3 mcp_architect.py
+$PYTHON_CMD mcp_architect.py
 success "MCP Architect ejecutado"
 
 # Final summary
